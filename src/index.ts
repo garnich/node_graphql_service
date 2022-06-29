@@ -1,7 +1,7 @@
 import express from 'express';
 import { env } from 'process'
 import { config } from 'dotenv';
-import { typeDefs } from './modules/types';
+import { typeDefs } from './types';
 import { resolvers } from './resolvers/resolvers';
 import { ApolloServer } from 'apollo-server-express';
 
