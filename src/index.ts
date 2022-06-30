@@ -1,7 +1,7 @@
 import express from 'express';
 import { env } from 'process'
 import { config } from 'dotenv';
-import { typeDefs } from './types';
+import { typeDefs } from './typeDefs';
 import { resolvers } from './resolvers/resolvers';
 import { ApolloServer } from 'apollo-server-express';
 
@@ -12,12 +12,19 @@ const PORT = env.PORT || 3000;
 const app = express();
 
 const server = async () => {	
-	const apolloServer = new ApolloServer({ typeDefs, resolvers });
+	const apolloServer = new ApolloServer({ 
+		typeDefs, 
+		resolvers,
+		context: ({ req }) => { 
+			const token = req.headers.authorization || '';
+
+			return { token };
+		},
+	});
 	
 	await apolloServer.start();
 	
 	apolloServer.applyMiddleware({ app: app })
-
 }
 
 server();
