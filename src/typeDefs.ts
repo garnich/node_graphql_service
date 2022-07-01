@@ -2,6 +2,7 @@ import { gql } from 'apollo-server-express';
 import { jwtSchemaType, jwtSchemaQuery } from './modules/jwt/schema';
 import { usersSchemaType, usersSchemaQuery, usersSchemaMutation} from './modules/users/schema';
 import { artistsSchemaType, artistsSchemaQuery, artistsSchemaMutation} from './modules/artists/schema';
+import { tracksSchemaType, tracksSchemaQuery, tracksSchemaMutation } from './modules/tracks/schema';
 
 const typeDefs = gql`
 	type DeletedItem {
@@ -11,18 +12,8 @@ const typeDefs = gql`
 
 	${jwtSchemaType}
 	${usersSchemaType}
-
-	type Track {
-		_id: ID!
-		title: String
-		albums: String
-		bands: [Band]
-		duration: Int
-		released: Int
-		genres: [Genre]
-	}
-
 	${artistsSchemaType}
+	${tracksSchemaType}
 
 	type Band {
 		_id: ID!
@@ -72,10 +63,9 @@ const typeDefs = gql`
 		${jwtSchemaQuery}
 		${usersSchemaQuery}
 		${artistsSchemaQuery}
+		${tracksSchemaQuery}
 		getGenre(id: ID!): Genre
 		getGenres: [Genre]!
-		getTrack(id: ID!): Track
-		getTracks: [Track]!
 		getBand(id: ID!): Band
 		getBands: [Band]!
 		getAlbum(id: ID!): Album
@@ -85,6 +75,7 @@ const typeDefs = gql`
 	type Mutation {
 		${usersSchemaMutation}
 		${artistsSchemaMutation}
+		${tracksSchemaMutation}
 	}
 `;
 
