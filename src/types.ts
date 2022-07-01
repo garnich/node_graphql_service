@@ -19,9 +19,9 @@ interface IArtistBase {
 
 interface IArtistFull extends IArtistBase {
     id: string;
-  }
+}
 
-  interface ITrackBase {
+interface ITrackBase {
     title: string; 
     albumId: string;
     bandsIds: string[];
@@ -32,6 +32,26 @@ interface IArtistFull extends IArtistBase {
 
 interface ITrackFull extends ITrackBase {
     id: string;
-  }
+}
 
-  export { IToken, IID, IArtistBase, IArtistFull, ITrackBase, ITrackFull };
+interface IGenreBase {
+    name: string;
+    description: string;
+    country: string;
+    year: number;
+}
+
+interface IGenreFull extends IGenreBase {
+    id: string;
+}
+
+export { 
+    IToken, 
+    IID, 
+    IArtistBase, 
+    IArtistFull, 
+    ITrackBase, 
+    ITrackFull,
+    IGenreBase,
+    IGenreFull,
+};
