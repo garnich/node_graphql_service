@@ -1,5 +1,5 @@
 import fetch from 'node-fetch';
-import { MICROSERVICIES, BASE_HEADERS } from '../../constants';
+import { MICROSERVICIES, BASE_HEADERS, TOKENT_STORE_WITHOUT_FRONT } from '../../constants';
 
 const jwtQueryResolver = {
     async getJwt (_: null, { email, password }: { email: string, password: string }) {
@@ -13,6 +13,8 @@ const jwtQueryResolver = {
     
         const response = await fetch(MICROSERVICIES.USERS, requestOptions);
         const data = await response.json();
+
+        TOKENT_STORE_WITHOUT_FRONT.token = data.jwt;
 
         return data
     }

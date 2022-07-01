@@ -15,4 +15,6 @@ const MICROSERVICIES = {
 	'Content-Type': 'application/json',
   };
 
-  export { MICROSERVICIES, BASE_HEADERS };
+  const TOKENT_STORE_WITHOUT_FRONT = { token: ''};
+
+  export { MICROSERVICIES, BASE_HEADERS, TOKENT_STORE_WITHOUT_FRONT };

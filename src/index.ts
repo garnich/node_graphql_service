@@ -4,6 +4,7 @@ import { config } from 'dotenv';
 import { typeDefs } from './typeDefs';
 import { resolvers } from './resolvers';
 import { ApolloServer } from 'apollo-server-express';
+import { TOKENT_STORE_WITHOUT_FRONT } from './constants';
 
 config();
 
@@ -16,7 +17,7 @@ const server = async () => {
 		typeDefs, 
 		resolvers,
 		context: ({ req }) => { 
-			const token = req.headers.authorization || '';
+			const token = req.headers.authorization || TOKENT_STORE_WITHOUT_FRONT.token || '';
 
 			return { token };
 		},
