@@ -45,6 +45,31 @@ interface IGenreFull extends IGenreBase {
     id: string;
 }
 
+interface IAlbumInputBase {
+    name: string;
+    released: number;
+    artistsIds: string[];
+    bandsIds: string[];
+    tracksIds: string[];
+    genresIds: string[];
+    image: string;
+}
+
+interface IAlbumInputFull extends IAlbumInputBase {
+    id: string;
+}
+
+interface IAlbumOutput {
+    id: string;
+    name: string;
+    released: number;
+    artists: IArtistFull[] | [];
+    bands: any[];
+    tracks: ITrackFull[];
+    genres: IGenreFull[];
+    image: string;
+}
+
 export { 
     IToken, 
     IID, 
@@ -54,4 +79,7 @@ export {
     ITrackFull,
     IGenreBase,
     IGenreFull,
+    IAlbumInputBase,
+    IAlbumOutput,
+    IAlbumInputFull
 };
