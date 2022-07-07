@@ -1,7 +1,7 @@
 import fetch from 'node-fetch';
 import { MICROSERVICIES, BASE_HEADERS } from '../../constants';
 import { IToken, IID, IAlbumInputBase, IAlbumInputFull, IAlbumOutput } from '../../types';
-import { getArtistsById, getBandsById, getTracksById, getGenresById } from '../../heplers/helpers';
+import { getArtistsById, getBandsById, getTracksById, getGenresById } from '../../services/services';
 
 const albumsQueryResolver = {
     async getAlbums () {
@@ -82,7 +82,6 @@ const albumsMutationResolver = {
             genresIds: genresIds || [],  
             image 
         };
-        console.log(albumData);
 
         const requestOptions = {
             method: 'PUT',

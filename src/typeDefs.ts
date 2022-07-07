@@ -5,6 +5,7 @@ import { artistsSchemaType, artistsSchemaQuery, artistsSchemaMutation} from './m
 import { tracksSchemaType, tracksSchemaQuery, tracksSchemaMutation } from './modules/tracks/schema';
 import { genresSchemaType, genresSchemaQuery, genresSchemaMutation } from './modules/genres/schema';
 import { albumsSchemaType, albumsSchemaQuery, albumsSchemaMutation } from './modules/albums/schema';
+import { bandsSchemaType, bandsSchemaQuery, bandsSchemaMutation } from './modules/bands/schema';
 
 const typeDefs = gql`
 	type DeletedItem {
@@ -18,15 +19,7 @@ const typeDefs = gql`
 	${tracksSchemaType}
 	${genresSchemaType}
 	${albumsSchemaType}
-
-	type Band {
-		_id: ID!
-		name: String
-		origin: String
-		members: [Member]
-		website: String
-		genres: String
-	}
+	${bandsSchemaType}
 
 	type Favourites {
 		_id: ID!
@@ -37,13 +30,6 @@ const typeDefs = gql`
 		tracks: [ID]
 	}
 
-	type Member {
-		_id: ID!
-		artist: Artist
-		instrument: String
-		years: String
-	}
-
 	type Query {
 		${jwtSchemaQuery}
 		${usersSchemaQuery}
@@ -51,8 +37,7 @@ const typeDefs = gql`
 		${tracksSchemaQuery}
 		${genresSchemaQuery}
 		${albumsSchemaQuery}
-		getBand(id: ID!): Band
-		getBands: [Band]!
+		${bandsSchemaQuery}
 	}
 
 	type Mutation {
@@ -61,6 +46,7 @@ const typeDefs = gql`
 		${tracksSchemaMutation}
 		${genresSchemaMutation}
 		${albumsSchemaMutation}
+		${bandsSchemaMutation}
 	}
 `;
 

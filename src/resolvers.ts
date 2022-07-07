@@ -4,6 +4,7 @@ import { artistsQueryResolver, artistsMutationResolver } from './modules/artists
 import { tracksQueryResolver, tracksMutationResolver } from './modules/tracks/resolvers';
 import { genresQueryResolver, genresMutationResolver } from './modules/genres/resolvers';
 import { albumsQueryResolver, albumsMutationResolver } from './modules/albums/resolvers';
+import { bandsQueryResolver, bandsMutationResolver } from './modules/bands/resolvers';
 
 const resolvers = {
 	Query: {
@@ -12,6 +13,7 @@ const resolvers = {
 		...tracksQueryResolver,
 		...genresQueryResolver,
 		...albumsQueryResolver,
+		...bandsQueryResolver,
 	},
 	Mutation: {
 		...usersMutationResolver,
@@ -19,6 +21,7 @@ const resolvers = {
 		...tracksMutationResolver,
 		...genresMutationResolver,
 		...albumsMutationResolver,
+		...bandsMutationResolver,
 	}
 };
 

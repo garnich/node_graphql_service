@@ -6,6 +6,20 @@ interface IID {
     id: string;
 }
 
+interface IMember {
+    id: string;
+    artist: IArtistFull;
+    instrument: string;
+    years: string;
+}
+
+interface IMemberInput {
+    id: string;
+    artistIds: string[];
+    instrument: string;
+    years: string;
+}
+
 interface IArtistBase {
     firstName: string;
     secondName: string;
@@ -70,6 +84,27 @@ interface IAlbumOutput {
     image: string;
 }
 
+interface IBandBase {
+    name: string;
+    origin: string;
+    members: IMember[];
+    website: string;
+    genres: IGenreFull[];
+}
+
+interface IBandBaseFull extends IBandBase {
+    id: string;
+}
+
+interface IBandBaseFullImport {
+    _id: string;
+    name: string;
+    origin: string;
+    members: IMemberInput[];
+    website: string;
+    genresIds: string[];
+}
+
 export { 
     IToken, 
     IID, 
@@ -81,5 +116,9 @@ export {
     IGenreFull,
     IAlbumInputBase,
     IAlbumOutput,
-    IAlbumInputFull
+    IAlbumInputFull,
+    IBandBase,
+    IBandBaseFull,
+    IBandBaseFullImport,
+    IMemberInput
 };
