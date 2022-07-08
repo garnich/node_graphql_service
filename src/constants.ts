@@ -7,7 +7,11 @@ const MICROSERVICIES = {
 	REGISTER: 'http://localhost:3004/v1/users/register/',
 	ALBUMS:'http://localhost:3005/v1/albums/',
 	TRACKS: 'http://localhost:3006/v1/tracks/',
-	FAVOURITES: 'http://localhost:3007/v1/favourites/'
+	FAVOURITES: {
+		GET: 'http://localhost:3007/v1/favourites/',
+		ADD: 'http://localhost:3007/v1/favourites/add',
+		REMOVE: 'http://localhost:3007/v1/favourites/remove'
+	}
   };
 
   const BASE_HEADERS = {

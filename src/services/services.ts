@@ -1,6 +1,6 @@
 import fetch from 'node-fetch';
 import { MICROSERVICIES } from '../constants';
-import { IBandBaseFullImport } from '../types';
+import { IBandBaseFullImport, IFavouritesOutputData } from '../types';
 
 const getArtistsById = async (artistsIds: string[]) => {
     return await Promise.all(artistsIds.map(async (artist: string) => {
@@ -61,4 +61,15 @@ const getBandData = async (band: IBandBaseFullImport) => {
         return output;
 };
 
-export { getArtistsById, getBandsById, getTracksById, getGenresById, getBandData };
+const getFavouritesData = async (data: IFavouritesOutputData) => (
+    {
+        id: data._id,
+        userId: data.userId,
+        bands: data.bandsIds.length ? await getBandsById(data.bandsIds) : [],
+        genres: data.genresIds.length ? await getGenresById(data.genresIds) : [],
+        artists: data.artistsIds.length ? await getArtistsById(data.artistsIds) : [],
+        tracks: data.tracksIds.length ? await getTracksById(data.tracksIds) : []
+    }
+);
+
+export { getArtistsById, getBandsById, getTracksById, getGenresById, getBandData, getFavouritesData };

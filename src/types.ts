@@ -105,6 +105,20 @@ interface IBandBaseFullImport {
     genresIds: string[];
 }
 
+interface IFavouriteInput {
+    type: 'bands' | 'genres' | 'artists' | 'tracks';
+    id: string;
+}
+
+interface IFavouritesOutputData {
+    _id: string;
+  userId: string;
+  bandsIds: string[];
+  genresIds: string[];
+  artistsIds: string[];
+  tracksIds: string[];
+}
+
 export { 
     IToken, 
     IID, 
@@ -120,5 +134,7 @@ export {
     IBandBase,
     IBandBaseFull,
     IBandBaseFullImport,
-    IMemberInput
+    IMemberInput,
+    IFavouriteInput,
+    IFavouritesOutputData
 };

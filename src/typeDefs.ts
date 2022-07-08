@@ -6,6 +6,7 @@ import { tracksSchemaType, tracksSchemaQuery, tracksSchemaMutation } from './mod
 import { genresSchemaType, genresSchemaQuery, genresSchemaMutation } from './modules/genres/schema';
 import { albumsSchemaType, albumsSchemaQuery, albumsSchemaMutation } from './modules/albums/schema';
 import { bandsSchemaType, bandsSchemaQuery, bandsSchemaMutation } from './modules/bands/schema';
+import { favouritesSchemaType, favouritesSchemaQuery, favouritesSchemaMutation } from './modules/favourites/schema';
 
 const typeDefs = gql`
 	type DeletedItem {
@@ -20,15 +21,7 @@ const typeDefs = gql`
 	${genresSchemaType}
 	${albumsSchemaType}
 	${bandsSchemaType}
-
-	type Favourites {
-		_id: ID!
-		userId: ID!
-		bands: [ID]
-		genres: [ID]
-		artists: [ID]
-		tracks: [ID]
-	}
+	${favouritesSchemaType}
 
 	type Query {
 		${jwtSchemaQuery}
@@ -38,6 +31,7 @@ const typeDefs = gql`
 		${genresSchemaQuery}
 		${albumsSchemaQuery}
 		${bandsSchemaQuery}
+		${favouritesSchemaQuery}
 	}
 
 	type Mutation {
@@ -47,6 +41,7 @@ const typeDefs = gql`
 		${genresSchemaMutation}
 		${albumsSchemaMutation}
 		${bandsSchemaMutation}
+		${favouritesSchemaMutation}
 	}
 `;
 
