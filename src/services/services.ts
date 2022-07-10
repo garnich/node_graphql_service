@@ -17,7 +17,7 @@ const getArtistsById = async (artistsIds: string[]) => {
         const response = await fetch(`${MICROSERVICIES.ARTIST}${artist}`, { method: 'GET' });
         const data = await response.json();
         
-        return data.item ? data.item : data;
+        return data.item ? await getArtistData(data.item) : await getArtistData(data);
     }))
 };
 
@@ -30,12 +30,12 @@ const getBandsById = async (bandsIds: string[]):Promise<any[]> => {
     }))
 };
 
-const getTracksById = async (trackIds: string[]) => {
+const getTracksById = async (trackIds: string[]): Promise<any[]> => {
     return await Promise.all(trackIds.map(async (track: string) => {
         const response = await fetch(`${MICROSERVICIES.TRACKS}${track}`, { method: 'GET' });
         const data = await response.json();
-        
-        return data
+
+        return await getTrackData(data)
     }))
 };
 
@@ -71,16 +71,18 @@ const getBandData = async (band: IBandBaseFullImport) => {
         return output;
 };
 
-const getFavouritesData = async (data: IFavouritesOutputData) => (
-    {
-        id: data._id,
-        userId: data.userId,
-        bands: data.bandsIds.length ? await getBandsById(data.bandsIds) : [],
-        genres: data.genresIds.length ? await getGenresById(data.genresIds) : [],
-        artists: data.artistsIds.length ? await getArtistsById(data.artistsIds) : [],
-        tracks: data.tracksIds.length ? await getTracksById(data.tracksIds) : []
+const getFavouritesData = async (data: IFavouritesOutputData) => {
+    const { _id, userId, bandsIds, genresIds, artistsIds, tracksIds } = data;
+
+    return {
+        id: _id,
+        userId: userId,
+        bands: bandsIds.length ? await getBandsById(bandsIds) : [],
+        genres: genresIds.length ? await getGenresById(genresIds) : [],
+        artists: artistsIds.length ? await getArtistsById(artistsIds) : [],
+        tracks: tracksIds.length ? await getTracksById(tracksIds) : []
     }
-);
+};
 
 const getTrackData = async (trackData: ITrackFull) => {
     const { _id: id,  title, albumId, bandsIds, duration, released, genresIds } = trackData;
