@@ -39,3 +39,8 @@ NODEJS2022Q2
 ![image](https://user-images.githubusercontent.com/33061150/177983068-64f2606b-9188-4d1f-9159-0cbf21f9e5dc.png)
 
 - after that you able to use all `queries` and `mutations`
+
+
+# NOTE!!!
+If you receive the next mistake during work with `getFavourites` query. Please do `getJWT` query and try `getFavourites` again.
+![image](https://user-images.githubusercontent.com/33061150/178155243-b481ebb9-d631-4c4f-a165-fdfe7d5c12bf.png)
