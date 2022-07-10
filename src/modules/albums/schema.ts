@@ -1,6 +1,6 @@
 const albumsSchemaType = `
     type Album {
-        _id: ID
+        id: ID
         name: String
         released: Int
         artists: [Artist]
@@ -11,12 +11,12 @@ const albumsSchemaType = `
     }
 
     type AlbumOutput {
-        _id: ID
+        id: ID
         name: String
         released: Int
         artistsIds: [ID]!
         bandsIds: [ID]!
-        tracksIds: [ID]!
+        trackIds: [ID]!
         genresIds: [ID]!
         image: String
     }
@@ -28,8 +28,8 @@ const albumsSchemaQuery = `
 `;
 
 const albumsSchemaMutation = `
-    createAlbum( name: String, released: Int, artistsIds: [ID]!, bandsIds: [ID]!, tracksIds: [ID]!, genresIds: [ID]!, image: String ): AlbumOutput
-    updateAlbum( id: ID!, name: String, released: Int, artistsIds: [ID], bandsIds: [ID], tracksIds: [ID], genresIds: [ID], image: String ): AlbumOutput
+    createAlbum( name: String, released: Int, artistsIds: [ID]!, bandsIds: [ID]!, trackIds: [ID]!, genresIds: [ID]!, image: String ): AlbumOutput
+    updateAlbum( id: ID!, name: String, released: Int, artistsIds: [ID], bandsIds: [ID], trackIds: [ID], genresIds: [ID], image: String ): AlbumOutput
     deleteAlbum( id: ID! ): DeletedItem
 `;
 

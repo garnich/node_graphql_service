@@ -42,7 +42,7 @@ const bandsMutationResolver = {
     },
     async updateBand (_: null, { id, name, origin, members, website, genres }: IBandBaseFull, { token }: IToken ) {
         const bandtData = { name, origin, members, website, genres};
-        console.log('bandtData', bandtData);
+
         const requestOptions = {
             method: 'PUT',
             headers: { ...BASE_HEADERS, Authorization: `Bearer ${token}`},

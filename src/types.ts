@@ -74,13 +74,13 @@ interface IAlbumInputBase {
     released: number;
     artistsIds: string[];
     bandsIds: string[];
-    tracksIds: string[];
+    trackIds: string[];
     genresIds: string[];
     image: string;
 }
 
 interface IAlbumInputFull extends IAlbumInputBase {
-    id: string;
+    _id: string;
 }
 
 interface IAlbumOutput {
@@ -88,9 +88,9 @@ interface IAlbumOutput {
     name: string;
     released: number;
     artists: IArtistFull[] | [];
-    bands: any[];
-    tracks: ITrackFull[];
-    genres: IGenreFull[];
+    bands: IBandBaseFull[] | [];
+    tracks: ITrackFull[] | [];
+    genres: IGenreFull[] | [];
     image: string;
 }
 

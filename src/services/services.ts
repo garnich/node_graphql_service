@@ -1,6 +1,6 @@
 import fetch from 'node-fetch';
 import { MICROSERVICIES } from '../constants';
-import { IBandBaseFullImport, IFavouritesOutputData, ITrackFull } from '../types';
+import { IBandBaseFullImport, IFavouritesOutputData, ITrackFull, IAlbumInputFull, IAlbumOutput, IBandBaseFull } from '../types';
 
 const getAlbumById = async (albumId: string) => {
     const response = await fetch(`${MICROSERVICIES.ALBUMS}${albumId}`, { method: 'GET' });
@@ -18,12 +18,13 @@ const getArtistsById = async (artistsIds: string[]) => {
     }))
 };
 
-const getBandsById = async (bandsIds: string[]) => {
+const getBandsById = async (bandsIds: string[]):Promise<any[]> => {
+
     return await Promise.all(bandsIds.map(async (band: string) => {
         const response = await fetch(`${MICROSERVICIES.BANDS}${band}`, { method: 'GET' });
         const data = await response.json();
         
-        return data
+        return await getBandData(data);
     }))
 };
 
@@ -114,4 +115,22 @@ const getTracksData = async (trackData: ITrackFull[]) => {
     }))
 };
 
-export { getAlbumById, getArtistsById, getBandsById, getTracksById, getGenresById, getBandData, getFavouritesData, getTrackData, getTracksData };
+const getAlbumData = async (album: IAlbumInputFull) => {
+    const {_id, name, released, image, artistsIds, bandsIds, trackIds, genresIds } = album;
+    
+    const output: IAlbumOutput = {
+        id: _id,
+        name,
+        released,
+        image,
+        artists: artistsIds.length ? await getArtistsById(artistsIds) : [],
+        bands: bandsIds.length ? await getBandsById(bandsIds) : [],
+        tracks: trackIds.length ? await getTracksById(trackIds) : [],
+        genres: genresIds.length ? await getGenresById(genresIds) : []
+    };
+
+    return output;
+};
+
+
+export { getAlbumById, getArtistsById, getBandsById, getTracksById, getGenresById, getBandData, getFavouritesData, getTrackData, getTracksData, getAlbumData };

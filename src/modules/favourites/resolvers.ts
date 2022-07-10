@@ -31,7 +31,6 @@ const favouritesMutationResolver = {
         return getFavouritesData(data);
     },
     async removeFromFavourites (_: null, { type, id }: IFavouriteInput, { token }: IToken ) {
-        console.log({type, id})
         const requestOptions = {
             method: 'PUT',
             headers: { ...BASE_HEADERS, Authorization: `Bearer ${token}`},
