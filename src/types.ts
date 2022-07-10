@@ -45,7 +45,17 @@ interface ITrackBase {
 }
 
 interface ITrackFull extends ITrackBase {
+    _id: string;
+}
+
+interface ITrackInputFull {
     id: string;
+    title: string; 
+    albumId: string;
+    bandsIds: string[];
+    duration: number;
+    released: number;
+    genresIds: string[];
 }
 
 interface IGenreBase {
@@ -126,6 +136,7 @@ export {
     IArtistFull, 
     ITrackBase, 
     ITrackFull,
+    ITrackInputFull,
     IGenreBase,
     IGenreFull,
     IAlbumInputBase,

@@ -1,19 +1,21 @@
 import fetch from 'node-fetch';
 import { MICROSERVICIES, BASE_HEADERS } from '../../constants';
-import { IToken, IID, ITrackBase, ITrackFull } from '../../types';
+import { IToken, IID, ITrackBase, ITrackFull, ITrackInputFull } from '../../types';
+import { getAlbumById, getBandsById, getGenresById, getTrackData, getTracksData } from '../../services/services';
 
 const tracksQueryResolver = {
     async getTracks () {
         const response = await fetch(MICROSERVICIES.TRACKS, {method: 'GET'});
         const data = await response.json();
-
-        return data.items
+        const output = await getTracksData(data.items);
+        
+        return output;
     },
     async getTrack (_: null, { id }: IID) {
         const response = await fetch(`${MICROSERVICIES.TRACKS}${id}`, { method: 'GET' });
         const data = await response.json();
-
-        return data
+        
+        return getTrackData(data)
     }
 };
 
@@ -32,7 +34,7 @@ const tracksMutationResolver = {
 
         return data;
     },
-    async updateTrack (_: null, { id, title, albumId, bandsIds, duration, released, genresIds }: ITrackFull, { token }: IToken ) {
+    async updateTrack (_: null, { id, title, albumId, bandsIds, duration, released, genresIds }: ITrackInputFull, { token }: IToken ) {
         const trackData = { title, albumId, bandsIds, duration, released, genresIds };
 
         const requestOptions = {

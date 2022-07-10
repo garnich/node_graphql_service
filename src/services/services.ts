@@ -1,6 +1,13 @@
 import fetch from 'node-fetch';
 import { MICROSERVICIES } from '../constants';
-import { IBandBaseFullImport, IFavouritesOutputData } from '../types';
+import { IBandBaseFullImport, IFavouritesOutputData, ITrackFull } from '../types';
+
+const getAlbumById = async (albumId: string) => {
+    const response = await fetch(`${MICROSERVICIES.ALBUMS}${albumId}`, { method: 'GET' });
+    const data = await response.json();
+    
+    return data;
+};
 
 const getArtistsById = async (artistsIds: string[]) => {
     return await Promise.all(artistsIds.map(async (artist: string) => {
@@ -72,4 +79,39 @@ const getFavouritesData = async (data: IFavouritesOutputData) => (
     }
 );
 
-export { getArtistsById, getBandsById, getTracksById, getGenresById, getBandData, getFavouritesData };
+const getTrackData = async (trackData: ITrackFull) => {
+    const { _id: id,  title, albumId, bandsIds, duration, released, genresIds } = trackData;
+
+    const output = {
+       id,
+       title,
+       albums: albumId ? await getAlbumById(albumId) : null,
+       bands: bandsIds.length ? await getBandsById(bandsIds) : [], 
+       duration,
+       released,
+       genres: genresIds.length ? await getGenresById(genresIds) : [],
+    };
+    
+    return output
+};
+
+const getTracksData = async (trackData: ITrackFull[]) => {
+    return await Promise.all(trackData.map(async (trackData: ITrackFull) => {
+
+    const { _id: id,  title, albumId, bandsIds, duration, released, genresIds } = trackData;
+
+    const output = {
+       id,
+       title,
+       albums: albumId ? await getAlbumById(albumId) : null,
+       bands: bandsIds.length ? await getBandsById(bandsIds) : [], 
+       duration,
+       released,
+       genres: genresIds.length ? await getGenresById(genresIds) : [],
+    };
+    
+    return output
+    }))
+};
+
+export { getAlbumById, getArtistsById, getBandsById, getTracksById, getGenresById, getBandData, getFavouritesData, getTrackData, getTracksData };
