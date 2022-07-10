@@ -11,7 +11,7 @@ const jwtQueryResolver = {
             body: JSON.stringify(userData),
         };
     
-        const response = await fetch(MICROSERVICIES.USERS, requestOptions);
+        const response = await fetch(MICROSERVICIES.USERS.LOGIN, requestOptions);
         const data = await response.json();
 
         TOKENT_STORE_WITHOUT_FRONT.token = data.jwt;

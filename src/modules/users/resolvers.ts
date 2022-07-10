@@ -1,5 +1,15 @@
 import fetch from 'node-fetch';
 import { MICROSERVICIES, BASE_HEADERS } from '../../constants';
+import { IID } from '../../types';
+
+const userQueryResolver = {
+    async getUser (_: null, { id }: IID) {
+        const response = await fetch(`${MICROSERVICIES.USERS.USERS}${id}`, { method: 'GET' });
+        const data = await response.json();
+
+        return data
+    }
+};
 
 const usersMutationResolver = {
     async register (_: null, { firstName, lastName, password, email }: { firstName: string, lastName: string, password: string, email: string }) {
@@ -18,4 +28,4 @@ const usersMutationResolver = {
     }
 }
 
-export  { usersMutationResolver };
+export  { userQueryResolver, usersMutationResolver };

@@ -1,5 +1,5 @@
 import { jwtQueryResolver } from './modules/jwt/resolvers';
-import { usersMutationResolver } from './modules/users/resolvers';
+import { userQueryResolver,usersMutationResolver } from './modules/users/resolvers';
 import { artistsQueryResolver, artistsMutationResolver } from './modules/artists/resolvers';
 import { tracksQueryResolver, tracksMutationResolver } from './modules/tracks/resolvers';
 import { genresQueryResolver, genresMutationResolver } from './modules/genres/resolvers';
@@ -10,6 +10,7 @@ import { favouritesQueryResolver, favouritesMutationResolver } from './modules/f
 const resolvers = {
 	Query: {
 		...jwtQueryResolver,
+		...userQueryResolver,
 		...artistsQueryResolver,
 		...tracksQueryResolver,
 		...genresQueryResolver,
