@@ -17,8 +17,8 @@ const tracksSchemaQuery = `
 
 const tracksSchemaMutation = `
     createTrack(title: String, albumId: ID, bandsIds: [String], duration: Int, released: Int, genresIds: [String]): Track
-    updateTrack(_id: ID!, title: String, albumId: String, bandsIds: [String], duration: Int, released: Int, genresIds: [String]): Track
-    deleteTrack(_id: ID!): DeletedItem
+    updateTrack(id: ID!, title: String, albumId: String, bandsIds: [String], duration: Int, released: Int, genresIds: [String]): Track
+    deleteTrack(id: ID!): DeletedItem
 `;
 
 export { tracksSchemaType, tracksSchemaQuery, tracksSchemaMutation };

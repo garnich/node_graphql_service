@@ -11,7 +11,7 @@ const albumsSchemaType = `
     }
 
     type AlbumOutput {
-        id: ID
+        _id: ID
         name: String
         released: Int
         artistsIds: [ID]!
@@ -23,14 +23,14 @@ const albumsSchemaType = `
 `;
 
 const albumsSchemaQuery = `
-    getAlbum(id: ID!): Album
+    getAlbum(_id: ID!): Album
 	getAlbums: [Album]!
 `;
 
 const albumsSchemaMutation = `
-    createAlbum( name: String, released: Int, artistsIds: [ID]!, bandsIds: [ID]!, trackIds: [ID]!, genresIds: [ID]!, image: String ): AlbumOutput
-    updateAlbum( id: ID!, name: String, released: Int, artistsIds: [ID], bandsIds: [ID], trackIds: [ID], genresIds: [ID], image: String ): AlbumOutput
-    deleteAlbum( id: ID! ): DeletedItem
+    createAlbum( name: String, released: Int, artistsIds: [ID]!, bandsIds: [ID]!, trackIds: [ID]!, genresIds: [ID]!, image: String ): Album
+    updateAlbum( _id: ID!, name: String, released: Int, artistsIds: [ID], bandsIds: [ID], trackIds: [ID], genresIds: [ID], image: String ): Album
+    deleteAlbum( _id: ID! ): DeletedItem
 `;
 
 export { albumsSchemaType, albumsSchemaQuery, albumsSchemaMutation };

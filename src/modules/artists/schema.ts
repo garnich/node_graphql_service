@@ -1,14 +1,26 @@
 const artistsSchemaType = `
-    type Artist {
+    type ArtistInput {
         _id: ID!
         firstName: String
         secondName: String
         middleName: String
         birthDate: String
         birthPlace: String
-        country: String
-        bandsIds: [ID]
-        instruments: [String]
+        country: String!
+        bandsIds: [ID]!
+        instruments: [String]!
+    }
+
+    type Artist {
+        id: ID!
+        firstName: String
+        secondName: String
+        middleName: String
+        birthDate: String
+        birthPlace: String
+        country: String!
+        bands: [Band]!
+        instruments: [String]!
     }
 `;
 

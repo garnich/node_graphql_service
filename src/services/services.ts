@@ -1,6 +1,9 @@
 import fetch from 'node-fetch';
 import { MICROSERVICIES } from '../constants';
-import { IBandBaseFullImport, IFavouritesOutputData, ITrackFull, IAlbumInputFull, IAlbumOutput, IBandBaseFull } from '../types';
+import { IBandBaseFullImport, IFavouritesOutputData, ITrackFull, IAlbumInputFull, IAlbumOutput, IArtistFull,
+    IArtistInputFull, 
+    IGenreFullInput,
+    IGenreFull} from '../types';
 
 const getAlbumById = async (albumId: string) => {
     const response = await fetch(`${MICROSERVICIES.ALBUMS}${albumId}`, { method: 'GET' });
@@ -19,7 +22,6 @@ const getArtistsById = async (artistsIds: string[]) => {
 };
 
 const getBandsById = async (bandsIds: string[]):Promise<any[]> => {
-
     return await Promise.all(bandsIds.map(async (band: string) => {
         const response = await fetch(`${MICROSERVICIES.BANDS}${band}`, { method: 'GET' });
         const data = await response.json();
@@ -42,7 +44,7 @@ const getGenresById = async (genresIds: string[]) => {
         const response = await fetch(`${MICROSERVICIES.GENRES}${genre}`, { method: 'GET' });
         const data = await response.json();
         
-        return data
+        return getGenreData(data)
     }))
 };
 
@@ -82,7 +84,7 @@ const getFavouritesData = async (data: IFavouritesOutputData) => (
 
 const getTrackData = async (trackData: ITrackFull) => {
     const { _id: id,  title, albumId, bandsIds, duration, released, genresIds } = trackData;
-
+    
     const output = {
        id,
        title,
@@ -132,5 +134,37 @@ const getAlbumData = async (album: IAlbumInputFull) => {
     return output;
 };
 
+const getArtistData = async (artist: IArtistInputFull) => {
+    const {_id, firstName, secondName, middleName, birthDate, birthPlace, country, bandsIds, instruments } = artist;
 
-export { getAlbumById, getArtistsById, getBandsById, getTracksById, getGenresById, getBandData, getFavouritesData, getTrackData, getTracksData, getAlbumData };
+    const output: IArtistFull = {
+        id: _id,
+        firstName,
+        secondName,
+        middleName,
+        birthDate,
+        birthPlace,
+        country,
+        instruments,
+        bands: bandsIds.length ? await getBandsById(bandsIds) : []
+    };
+
+    return output;
+};
+
+const getGenreData = async (genreData: IGenreFullInput) => {
+    const {_id, name, description, country, year } = genreData;
+
+    const output: IGenreFull = {
+        id: _id,
+        name,
+        description,
+        country,
+        year
+    };
+
+    return output;
+};
+
+
+export { getAlbumById, getArtistsById, getBandsById, getTracksById, getGenresById, getBandData, getFavouritesData, getTrackData, getTracksData, getAlbumData, getArtistData, getGenreData };

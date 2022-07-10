@@ -1,7 +1,7 @@
 import fetch from 'node-fetch';
 import { MICROSERVICIES, BASE_HEADERS } from '../../constants';
-import { IToken, IID, IAlbumInputBase, IAlbumInputFull, IAlbumOutput } from '../../types';
-import { getArtistsById, getBandsById, getTracksById, getGenresById, getAlbumData } from '../../services/services';
+import { IToken, IID, IAlbumInputBase, IAlbumInputFull, IIDInput } from '../../types';
+import { getAlbumData } from '../../services/services';
 
 const albumsQueryResolver = {
     async getAlbums () {
@@ -43,7 +43,7 @@ const albumsMutationResolver = {
         const response = await fetch(MICROSERVICIES.ALBUMS, requestOptions);
         const data = await response.json();
 
-        return data;
+        return await getAlbumData(data);
     },
     async updateAlbum (_: null, { _id, name, released, artistsIds, bandsIds, trackIds, genresIds, image }: IAlbumInputFull, { token }: IToken ) {
        const albumData = { 
@@ -66,15 +66,15 @@ const albumsMutationResolver = {
         const response = await fetch(`${MICROSERVICIES.ALBUMS}${_id}`, requestOptions);
         const data = await response.json();
 
-        return data;
+        return await getAlbumData(data);
     },
-    async deleteAlbum (_: null, { id }: IID, { token }: IToken ) {
+    async deleteAlbum (_: null, { _id }: IIDInput, { token }: IToken ) {
         const requestOptions = {
             method: 'DELETE',
             headers: { ...BASE_HEADERS, Authorization: `Bearer ${token}`},
         };
     
-        const response = await fetch(`${MICROSERVICIES.ALBUMS}${id}`, requestOptions);
+        const response = await fetch(`${MICROSERVICIES.ALBUMS}${_id}`, requestOptions);
         const data = await response.json();
 
         return data;

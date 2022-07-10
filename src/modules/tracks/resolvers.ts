@@ -31,8 +31,9 @@ const tracksMutationResolver = {
     
         const response = await fetch(MICROSERVICIES.TRACKS, requestOptions);
         const data = await response.json();
+        const output = await getTrackData(data);
 
-        return data;
+        return output;
     },
     async updateTrack (_: null, { id, title, albumId, bandsIds, duration, released, genresIds }: ITrackInputFull, { token }: IToken ) {
         const trackData = { title, albumId, bandsIds, duration, released, genresIds };
@@ -45,8 +46,9 @@ const tracksMutationResolver = {
     
         const response = await fetch(`${MICROSERVICIES.TRACKS}${id}`, requestOptions);
         const data = await response.json();
+        const output = await getTrackData(data);
 
-        return data;
+        return output;
     },
     async deleteTrack (_: null, { id }: IID, { token }: IToken ) {
         const requestOptions = {

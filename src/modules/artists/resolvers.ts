@@ -1,5 +1,6 @@
 import fetch from 'node-fetch';
 import { MICROSERVICIES, BASE_HEADERS } from '../../constants';
+import { getArtistData } from '../../services/services';
 import { IToken, IID, IArtistBase, IArtistFull } from '../../types';
 
 const artistsQueryResolver = {
@@ -29,8 +30,9 @@ const artistsMutationResolver = {
     
         const response = await fetch(MICROSERVICIES.ARTIST, requestOptions);
         const data = await response.json();
+        const output = await getArtistData(data);
 
-        return data;
+        return output;
     },
     async updateArtist (_: null, { id, firstName, secondName, middleName, birthDate, birthPlace, country, bands, instruments }: IArtistFull, { token }: IToken ) {
         const artistData = {firstName, secondName, middleName, birthDate, birthPlace, country, bands, instruments};
@@ -43,8 +45,9 @@ const artistsMutationResolver = {
     
         const response = await fetch(`${MICROSERVICIES.ARTIST}${id}`, requestOptions);
         const data = await response.json();
+        const output = await getArtistData(data);
 
-        return data;
+        return output;
     },
     async deleteArtist (_: null, { id }: IID, { token }: IToken ) {
         const requestOptions = {

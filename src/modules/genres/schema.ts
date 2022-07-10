@@ -1,6 +1,6 @@
 const genresSchemaType = `
     type Genre {
-        _id: ID!
+        id: ID!
         name: String
         description: String
         country: String
@@ -15,8 +15,8 @@ const genresSchemaQuery = `
 
 const genresSchemaMutation = `
     createGenre(name: String, description: String, country: String, year: Int): Genre
-    updateGenre(id: ID!, name: String, description: String, country: String, year: Int): Genre
-    deleteGenre(id: ID!): DeletedItem
+    updateGenre(_id: ID!, name: String, description: String, country: String, year: Int): Genre
+    deleteGenre(_id: ID!): DeletedItem
 `;
 
 export { genresSchemaType, genresSchemaQuery, genresSchemaMutation };

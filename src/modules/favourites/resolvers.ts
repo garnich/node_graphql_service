@@ -5,11 +5,10 @@ import { getFavouritesData } from '../../services/services';
 
 const favouritesQueryResolver = {
     async getFavourites (_: null, data: null, { token }: IToken) {
-
         const requestOptions = {
-                    method: 'GET',
-                    headers: { ...BASE_HEADERS, Authorization: `Bearer ${token}`},
-                };
+            method: 'GET',
+            headers: { ...BASE_HEADERS, Authorization: `Bearer ${token}`},
+        };
         const response = await fetch(MICROSERVICIES.FAVOURITES.GET, requestOptions);
         const output = await response.json();
 

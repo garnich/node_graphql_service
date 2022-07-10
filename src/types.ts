@@ -6,6 +6,10 @@ interface IID {
     id: string;
 }
 
+interface IIDInput {
+    _id: string;
+}
+
 interface IMember {
     id: string;
     artist: IArtistFull;
@@ -31,8 +35,23 @@ interface IArtistBase {
     instruments: string[];
 }
 
+interface IArtistInputBase {
+    firstName: string;
+    secondName: string;
+    middleName: string;
+    birthDate: string;
+    birthPlace: string;
+    country: string;
+    bandsIds: string[];
+    instruments: string[];
+}
+
 interface IArtistFull extends IArtistBase {
     id: string;
+}
+
+interface IArtistInputFull extends IArtistInputBase {
+    _id: string; 
 }
 
 interface ITrackBase {
@@ -67,6 +86,10 @@ interface IGenreBase {
 
 interface IGenreFull extends IGenreBase {
     id: string;
+}
+
+interface IGenreFullInput extends IGenreBase {
+    _id: string;
 }
 
 interface IAlbumInputBase {
@@ -147,5 +170,8 @@ export {
     IBandBaseFullImport,
     IMemberInput,
     IFavouriteInput,
-    IFavouritesOutputData
+    IFavouritesOutputData,
+    IArtistInputFull,
+    IGenreFullInput,
+    IIDInput
 };
