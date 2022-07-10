@@ -8,13 +8,17 @@ const artistsQueryResolver = {
         const response = await fetch(MICROSERVICIES.ARTIST, {method: 'GET'});
         const data = await response.json();
 
-        return data.items
+        const output =  await Promise.all(data.items.map(async(item: any) => {
+            return await getArtistData(item)
+        }));
+
+        return output
     },
     async getArtist (_: null, { id }: IID) {
         const response = await fetch(`${MICROSERVICIES.ARTIST}${id}`, { method: 'GET' });
         const data = await response.json();
 
-        return data
+        return await getArtistData(data)
     }
 };
 

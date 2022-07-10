@@ -44,7 +44,6 @@ const genresMutationResolver = {
     
         const response = await fetch(`${MICROSERVICIES.GENRES}${_id}`, requestOptions);
         const data = await response.json();
-        console.log('data', data);
         
         return getGenreData(data);
     },

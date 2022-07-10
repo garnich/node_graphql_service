@@ -23,7 +23,7 @@ const albumsSchemaType = `
 `;
 
 const albumsSchemaQuery = `
-    getAlbum(_id: ID!): Album
+    getAlbum(id: ID!): Album
 	getAlbums: [Album]!
 `;
 
